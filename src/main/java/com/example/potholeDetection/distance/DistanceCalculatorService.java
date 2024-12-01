@@ -52,7 +52,7 @@ public class DistanceCalculatorService {
         var client = HttpClient.newBuilder().build();
         var response = client.send(request, HttpResponse.BodyHandlers.ofString()).body(); 
 
-        // System.out.println(response);
+        System.out.println(response);
         JSONParser jp = new JSONParser();
         JSONObject jo = (JSONObject) jp.parse(response);
         JSONArray ja = (JSONArray) jo.get("rows");
