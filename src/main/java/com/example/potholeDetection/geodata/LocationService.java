@@ -38,7 +38,7 @@ public class LocationService {
     public String remover(Location location){
 
         Optional<Location> optionalLocation=locationRepository.findByLatitudeAndLongitude(location.getLatitude(), location.getLongitude());
-        if(optionalLocation==null){
+        if(optionalLocation.isPresent()){
             return "nothing";
         }
         Location toRemoved=optionalLocation.get();
