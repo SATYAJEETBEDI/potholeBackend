@@ -1,6 +1,7 @@
 package com.example.potholeDetection.geodata;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -8,6 +9,8 @@ import com.example.potholeDetection.clustering.Centroid;
 import com.example.potholeDetection.clustering.CentroidRepository;
 import com.example.potholeDetection.clustering.KMeansClustering;
 import com.example.potholeDetection.distance.DistanceCalculatorService;
+
+import weka.classifiers.evaluation.output.prediction.Null;
 
 @Service
 public class LocationService {
@@ -34,10 +37,14 @@ public class LocationService {
     }
     public String remover(Location location){
 
-        Location toRemoved=locationRepository.findByLatitudeAndLongitude(location.getLatitude(), location.getLongitude());
+        Optional<Location> optionalLocation=locationRepository.findByLatitudeAndLongitude(location.getLatitude(), location.getLongitude());
+        if(optionalLocation==null){
+            return "nothing";
+        }
+        Location toRemoved=optionalLocation.get();
         Integer newval=toRemoved.getVal()-1;
         if(newval<=0){
-            locationRepository.deleteByVal(toRemoved.getVal());
+            locationRepository.deleteByVal(1)  ;
             return "pothole removed";
         }
         toRemoved.setVal(newval);
