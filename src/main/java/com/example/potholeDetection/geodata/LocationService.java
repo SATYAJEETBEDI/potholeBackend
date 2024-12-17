@@ -44,7 +44,7 @@ public class LocationService {
         Location toRemoved=optionalLocation.get();
         Integer newval=toRemoved.getVal()-1;
         if(newval<=0){
-            locationRepository.deleteByVal(1)  ;
+            locationRepository.deleteByLatitudeAndLongitude(toRemoved.getLatitude(),toRemoved.getLongitude())  ;
             return "pothole removed";
         }
         toRemoved.setVal(newval);
