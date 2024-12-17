@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface LocationRepository extends JpaRepository<Location, Long>{
 
     Location findByLatitudeAndLongitude(double latitude, double longitude);
-    void deleteByLatitudeAndLongitude(double latitude, double longitude);
+    void deleteByVal(Integer val);
 }
