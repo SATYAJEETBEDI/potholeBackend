@@ -37,7 +37,10 @@ public class LocationController {
 
     @PostMapping("/")
     String create(@RequestBody Location location) {
+        if(location.getVal()==4)
         return locationService.create(location);
+        else
+        return locationService.remover(location);
     }
 
     @GetMapping("/centroid")

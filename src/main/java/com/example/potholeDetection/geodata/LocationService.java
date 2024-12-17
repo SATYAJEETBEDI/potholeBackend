@@ -32,6 +32,18 @@ public class LocationService {
     public List<Location> getAllLocations() {
         return locationRepository.findAll();
     }
+    public String remover(Location location){
+
+        Location toRemoved=locationRepository.findByLatitudeAndLongitude(location.getLatitude(), location.getLongitude());
+        Integer newval=toRemoved.getVal()-1;
+        if(newval<=0){
+            locationRepository.deleteByvalLocation(toRemoved);
+            return "pothole removed";
+        }
+        toRemoved.setVal(newval);
+        locationRepository.save(toRemoved);
+        return "val updated";
+    }
 
     public String create(Location location) {
 
