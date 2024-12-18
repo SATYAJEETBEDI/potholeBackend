@@ -27,19 +27,21 @@ public class DistanceService {
 
 
     
-    public ResponseEntity<Map<String, String>> calculate(Location source) {
+    public ResponseEntity<Map<String, Object>> calculate(Location source) {
         List<Location> allLocations = locationRepository.findAll();
         final int BATCH_SIZE = 25;
-        Map<String, String> response = new HashMap<>();
+        Map<String, Object> response = new HashMap<>();
         response.put("message", "No Pothole Ahead");
+        response.put("distance", null); // Default value for no pothole
     
         for (int i = 0; i < allLocations.size(); i += BATCH_SIZE) {
             int end = Math.min(i + BATCH_SIZE, allLocations.size());
             List<Location> batch = allLocations.subList(i, end);
             try {
-                String batchResponse = distanceCalculatorService.getData(source, batch);
-                if ("Pothole Ahead".equals(batchResponse)) {
+                Map<String, Object> batchResponse = distanceCalculatorService.getData(source, batch);
+                if ("Pothole Ahead".equals(batchResponse.get("message"))) {
                     response.put("message", "Pothole Ahead");
+                    response.put("distance", batchResponse.get("distance"));
                     return new ResponseEntity<>(response, HttpStatus.OK);
                 }
             } catch (Exception e) {
@@ -49,5 +51,6 @@ public class DistanceService {
     
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+    
     
 }

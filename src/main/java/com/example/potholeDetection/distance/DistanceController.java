@@ -22,7 +22,7 @@ public class DistanceController {
     }
 
     @PostMapping("/live")
-    public ResponseEntity<Map<String, String>> alert(@RequestBody Location location) {
+    public ResponseEntity<Map<String, Object>> alert(@RequestBody Location location) {
          return distanceService.calculate(location);
     }
 }
