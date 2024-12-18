@@ -71,7 +71,7 @@ public Map<String, Object> getData(Location source, List<Location> destinations)
         long distance = (long) distanceElement.get("value");
         System.out.println("API Response: " + distance );
 
-        if (distance < 5) {
+        if (distance < 20) {
             potholeAhead = true;
         }
         nearestDistance = Math.min(nearestDistance, distance);
