@@ -54,7 +54,8 @@ public Map<String, Object> getData(Location source, List<Location> destinations)
     var client = HttpClient.newBuilder().build();
     var response = client.send(request, HttpResponse.BodyHandlers.ofString()).body(); 
 
-    System.out.println(response);
+    System.out.println("Source: " + sourceLat + "," + sourceLng);
+    System.out.println("Destinations: " + destinationsPart);
     JSONParser jp = new JSONParser();
     JSONObject jo = (JSONObject) jp.parse(response);
     JSONArray ja = (JSONArray) jo.get("rows");
@@ -68,6 +69,8 @@ public Map<String, Object> getData(Location source, List<Location> destinations)
         JSONObject element = (JSONObject) ja.get(i);
         JSONObject distanceElement = (JSONObject) element.get("distance");
         long distance = (long) distanceElement.get("value");
+        System.out.println("API Response: " + distance );
+
         if (distance < 5) {
             potholeAhead = true;
         }
