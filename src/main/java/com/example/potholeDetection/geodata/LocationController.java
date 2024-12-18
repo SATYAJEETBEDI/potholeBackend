@@ -23,11 +23,11 @@ public class LocationController {
         this.locationService = locationService;
     }
 
-    // @PostMapping("/live")
-    // public Optional<String> alert(@RequestBody Location location) {
+    @PostMapping("/live")
+    public void alert() {
         
-    //     return locationService.googleDistance(location);
-    // }
+         locationService.temp();
+    }
     
     @GetMapping("/test")
     public String getMethodName() {

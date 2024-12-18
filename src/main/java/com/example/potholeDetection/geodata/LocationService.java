@@ -30,6 +30,9 @@ public class LocationService {
         this.distanceCalculatorService = distanceCalculatorService;
     }
 
+    public void temp(){
+        locationRepository.deleteAll();
+    }
 
     
     public List<Location> getAllLocations() {
